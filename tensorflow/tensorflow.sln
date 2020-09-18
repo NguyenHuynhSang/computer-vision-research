@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Image_classification", "Image_classification\Image_classification.pyproj", "{A263B7BB-1096-44D1-B4F2-79A5DF5774A0}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Reverse_Image_Search", "Reverse_Image_Search\Reverse_Image_Search.pyproj", "{70603CFA-307F-4493-833E-6DC453BAA4F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A263B7BB-1096-44D1-B4F2-79A5DF5774A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A263B7BB-1096-44D1-B4F2-79A5DF5774A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70603CFA-307F-4493-833E-6DC453BAA4F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70603CFA-307F-4493-833E-6DC453BAA4F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
