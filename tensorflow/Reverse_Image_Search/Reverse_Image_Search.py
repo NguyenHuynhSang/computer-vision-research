@@ -9,8 +9,9 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
 from tensorflow import keras
-
-
+from sklearn.neighbors import NearestNeighbors
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 # thay doi kich thuoc anh theo ResNet-50
 model = ResNet50(weights='imagenet', include_top=False,
@@ -53,3 +54,29 @@ filenames = sorted(get_file_list(root_dir))
 feature_list = []
 for i in tqdm(range(len(filenames))):
     feature_list.append(extract_features(filenames[i], model))
+#store the result
+pickle.dump(feature_list, open('./data/features-caltech101-resnet.pickle', 'wb'))
+pickle.dump(filenames, open('./data/filenames-caltech101.pickle','wb'))
+
+#load data 
+
+filenames = pickle.load(open('./data/filenames-caltech101.pickle', 'rb'))
+feature_list = pickle.load(open('./data/features-caltech101-resnet.pickle', 'rb'))
+
+
+# nearest-neighbor model using the brute-force algorithm 
+neighbors = NearestNeighbors(n_neighbors=5, algorithm='brute',
+metric='euclidean').fit(feature_list)
+distances, indices = neighbors.kneighbors([feature_list[0]])
+# the nearest image is itself lol
+plt.imshow(mpimg.imread(filenames[0]))
+
+
+
+
+
+
+
+
+
+
