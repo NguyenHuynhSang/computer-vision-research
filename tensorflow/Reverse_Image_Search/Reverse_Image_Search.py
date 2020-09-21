@@ -52,8 +52,8 @@ filenames = sorted(get_file_list(root_dir))
 
 
 feature_list = []
-#for i in tqdm(range(len(filenames))):
- #   feature_list.append(extract_features(filenames[i], model))
+for i in tqdm(range(len(filenames))):
+    feature_list.append(extract_features(filenames[i], model))
 #store the result
 pickle.dump(feature_list, open('./data/features-caltech101-resnet.pickle', 'wb'))
 pickle.dump(filenames, open('./data/filenames-caltech101.pickle','wb'))
@@ -71,8 +71,16 @@ distances, indices = neighbors.kneighbors([feature_list[0]])
 # the nearest image is itself lol
 plt.imshow(mpimg.imread(filenames[0]))
 
+# show k-neighbor index value of 5 nearest image 
+for i in range(5):
+    print(distances[0][i])
 
-
+for i in range(6):
+    random_image_index = random.randint(0,num_images)
+    distances, indices = neighbors.kneighbors([featureList[random_image_index]])
+    # don't take the first closest image as it will be the same image
+    similar_image_paths = [filenames[random_image_index]] +  [filenames[indices[0][i]] for i in range(1,4)]
+    plot_images(similar_image_paths, distances[0])
 
 
 
