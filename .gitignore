@@ -125,3 +125,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 *.pickle
+*.pickle
+tensorflow/Reverse_Image_Search/data/features-caltech101-resnet.pickle
