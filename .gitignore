@@ -119,7 +119,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 .dmypy.json
+*pickle
 dmypy.json
 
 # Pyre type checker
 .pyre/
+*.pickle

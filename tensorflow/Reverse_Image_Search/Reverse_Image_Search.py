@@ -52,8 +52,8 @@ filenames = sorted(get_file_list(root_dir))
 
 
 feature_list = []
-for i in tqdm(range(len(filenames))):
-    feature_list.append(extract_features(filenames[i], model))
+#for i in tqdm(range(len(filenames))):
+ #   feature_list.append(extract_features(filenames[i], model))
 #store the result
 pickle.dump(feature_list, open('./data/features-caltech101-resnet.pickle', 'wb'))
 pickle.dump(filenames, open('./data/filenames-caltech101.pickle','wb'))
