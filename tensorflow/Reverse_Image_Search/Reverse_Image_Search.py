@@ -5,6 +5,10 @@ from tqdm import tqdm, tqdm_notebook
 import os
 import time
 import tensorflow as tf
+from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
+import PIL
+from PIL import Image
 
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
@@ -65,7 +69,7 @@ feature_list = []
 
 filenames = pickle.load(open('./data/filenames-caltech101.pickle', 'rb'))
 feature_list = pickle.load(open('./data/features-caltech101-resnet.pickle', 'rb'))
-
+class_ids = pickle.load(open('./data/class_ids-caltech101.pickle', 'rb'))
 
 num_images = len(filenames)
 num_features_per_image = len(feature_list[0])
@@ -117,11 +121,30 @@ def plot_images(filenames, distances):
 for i in range(6):
     random_image_index = random.randint(0,num_images)
     distances, indices = neighbors.kneighbors([feature_list[random_image_index]])
-    # don't take the first closest image as it will be the same image
+    # ignore first nearest image
     similar_image_paths = [filenames[random_image_index]] +  [filenames[indices[0][i]] for i in range(1,4)]
     plot_images(similar_image_paths, distances[0])
 
 
+    # Perform PCA over the features
+num_feature_dimensions=100      # Set the number of features
+pca = PCA(n_components = num_feature_dimensions)
+pca.fit(feature_list)
+feature_list_compressed = pca.transform(feature_list)
+
+# For speed and clarity, we'll analyze about first half of the dataset.
+selected_features = feature_list_compressed[:4000]
+selected_class_ids = class_ids[:4000]
+selected_filenames = filenames[:4000]
+
+tsne_results =TSNE(n_components=2,verbose=1,metric='euclidean').fit_transform(selected_features)
+
+# Plot a scatter plot from the generated t-SNE results
+colormap = plt.cm.get_cmap('coolwarm')
+scatter_plot = plt.scatter(tsne_results[:,0],tsne_results[:,1], c =
+               selected_class_ids, cmap=colormap)
+plt.colorbar(scatter_plot)
+plt.show()
 
 
 
