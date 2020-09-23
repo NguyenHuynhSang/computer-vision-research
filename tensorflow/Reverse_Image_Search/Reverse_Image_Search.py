@@ -76,12 +76,12 @@ generator = datagen.flow_from_directory(root_dir,
 #store the result
 #pickle.dump(feature_list, open('./data/features-caltech101-resnet.pickle', 'wb'))
 #pickle.dump(filenames, open('./data/filenames-caltech101.pickle','wb'))
-#pickle.dump(filenames, open('./data/filenames-caltech101.pickle','wb'))
-#load data 
 #pickle.dump(generator.classes, open('./data/class_ids-caltech101.pickle','wb'))
+#load data 
+
 filenames = pickle.load(open('./data/filenames-caltech101.pickle', 'rb'))
 feature_list = pickle.load(open('./data/features-caltech101-resnet.pickle', 'rb'))
-#class_ids = pickle.load(open('./data/class_ids-caltech101.pickle', 'rb'))
+class_ids = pickle.load(open('./data/class_ids-caltech101.pickle', 'rb'))
 
 
 print("Number of images = ", len(generator.filenames))
