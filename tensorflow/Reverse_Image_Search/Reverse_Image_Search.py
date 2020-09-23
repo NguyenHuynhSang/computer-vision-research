@@ -13,6 +13,9 @@ from PIL import Image
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
 from tensorflow import keras
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 from sklearn.neighbors import NearestNeighbors
 import matplotlib
 import matplotlib.pyplot as plt
@@ -61,16 +64,27 @@ filenames = sorted(get_file_list(root_dir))
 feature_list = []
 #for i in tqdm(range(len(filenames))):
 #    feature_list.append(extract_features(filenames[i], model))
+
+batch_size = 64
+datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+ 
+generator = datagen.flow_from_directory(root_dir,
+                                        target_size=(224, 224),
+                                        batch_size=batch_size,
+                                        class_mode=None,
+                                        shuffle=False)
 #store the result
 #pickle.dump(feature_list, open('./data/features-caltech101-resnet.pickle', 'wb'))
 #pickle.dump(filenames, open('./data/filenames-caltech101.pickle','wb'))
-
+#pickle.dump(filenames, open('./data/filenames-caltech101.pickle','wb'))
 #load data 
-
+#pickle.dump(generator.classes, open('./data/class_ids-caltech101.pickle','wb'))
 filenames = pickle.load(open('./data/filenames-caltech101.pickle', 'rb'))
 feature_list = pickle.load(open('./data/features-caltech101-resnet.pickle', 'rb'))
-class_ids = pickle.load(open('./data/class_ids-caltech101.pickle', 'rb'))
+#class_ids = pickle.load(open('./data/class_ids-caltech101.pickle', 'rb'))
 
+
+print("Number of images = ", len(generator.filenames))
 num_images = len(filenames)
 num_features_per_image = len(feature_list[0])
 print("Number of images = ", num_images)
